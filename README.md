@@ -4,7 +4,7 @@
 
 ### VirtualBox • Kali Linux • Network Configuration
 
-**Batch: Cybersecurity Int B084F | Week 1 — Practical Module 1**
+**Cybersecurity Int. B084D | Week 1 — Practical Module 1**
 
 <p>
   <img src="https://img.shields.io/badge/OS-Windows%2011-blue?style=for-the-badge&logo=windows" alt="Windows 11">
@@ -13,7 +13,7 @@
   <img src="https://img.shields.io/badge/Focus-Networking-red?style=for-the-badge" alt="Networking">
 </p>
 
-*A hands-on cybersecurity lab demonstrating virtual machine deployment, network configuration, IP addressing, and connectivity testing.*
+*A hands-on cybersecurity project focused on virtualization, network configuration, IP addressing, and connectivity testing.*
 
 </div>
 
@@ -21,38 +21,42 @@
 
 ## 📌 Table of Contents
 
-* [Overview](#-project-overview)
+* [Project Overview](#-project-overview)
 * [Objectives](#-objectives)
 * [Lab Environment](#-lab-environment)
 * [Network Architecture](#-network-architecture)
 * [Network Configuration](#-network-configuration)
-* [Implementation](#-implementation)
+* [Implementation Steps](#-implementation-steps)
 * [Verification and Testing](#-verification-and-testing)
-* [Screenshots](#-screenshots)
+* [Lab Screenshots](#-lab-screenshots)
 * [Challenges and Troubleshooting](#-challenges-and-troubleshooting)
 * [Key Learnings](#-key-learnings)
+* [Tools and Technologies](#-tools-and-technologies)
 * [Security and Ethical Use](#-security-and-ethical-use)
 * [Project Information](#-project-information)
 
+---
+
 ## 🎯 Project Overview
 
-This project focuses on building a basic cybersecurity lab using **Oracle VirtualBox and Kali Linux** on a Windows 11 computer.
+This project demonstrates the setup of a basic cybersecurity lab using **Oracle VirtualBox and Kali Linux** on a Windows 11 host machine.
 
-A dedicated NAT Network is configured to provide a virtual networking environment for the lab. The Kali Linux virtual machine is configured with a static IPv4 address, gateway, and DNS server.
+A dedicated NAT Network named `NatNetwork` is configured to provide a virtual networking environment. Kali Linux is configured with a static IPv4 address, gateway, and DNS server.
 
-The lab provides a foundation for learning virtualization, Linux networking, IP configuration, connectivity troubleshooting, and cybersecurity tools in a controlled environment.
+The lab provides practical experience with virtualization, Linux networking, IP addressing, connectivity troubleshooting, and cybersecurity tools in a controlled environment.
 
 ## 🚀 Objectives
 
 * Set up a virtualized cybersecurity lab.
-* Install and use Oracle VirtualBox and 7-Zip.
+* Install and configure Oracle VirtualBox and 7-Zip.
 * Import and configure a Kali Linux virtual machine.
 * Create a NAT Network with a custom IPv4 subnet.
 * Configure static IP addressing, gateway, and DNS.
-* Verify network and internet connectivity.
+* Test gateway connectivity and internet access.
+* Verify DNS resolution and network configuration.
 * Configure virtual machine integration features.
-* Create a snapshot of the configured virtual machine.
-* Document the implementation with screenshots and command outputs.
+* Create a virtual machine snapshot.
+* Document the lab setup using screenshots.
 
 ## 💻 Lab Environment
 
@@ -81,24 +85,24 @@ The lab provides a foundation for learning virtualization, Linux networking, IP 
 The lab uses a VirtualBox NAT Network to establish a virtual network for the Kali Linux environment.
 
 ```text
-              HOST MACHINE
-              Windows 11
-                   |
-           Oracle VirtualBox
-                   |
-          +-------------------+
-          |    NatNetwork     |
-          |  10.0.0.0/24      |
-          +-------------------+
-                   |
-          +-------------------+
-          |    Kali Linux     |
-          |                   |
-          | IP: 10.0.0.2/24   |
-          | GW: 10.0.0.1      |
-          | DNS: 8.8.8.8      |
-          +-------------------+
-                   |
+             HOST MACHINE
+               Windows 11
+                    |
+             Oracle VirtualBox
+                    |
+          +----------------------+
+          |      NatNetwork      |
+          |    10.0.0.0/24       |
+          +----------------------+
+                    |
+          +----------------------+
+          |      Kali Linux      |
+          |                      |
+          | IP: 10.0.0.2/24      |
+          | Gateway: 10.0.0.1    |
+          | DNS: 8.8.8.8         |
+          +----------------------+
+                    |
              Network Testing
           Gateway / Internet / DNS
 ```
@@ -107,84 +111,93 @@ The lab uses a VirtualBox NAT Network to establish a virtual network for the Kal
 
 ## ⚙️ Network Configuration
 
-The following IPv4 configuration was entered for the Kali Linux network connection.
+The following IPv4 settings were entered for the Kali Linux network connection.
 
-| Parameter       | Value          |
-| --------------- | -------------- |
-| Connection Type | Wired Ethernet |
-| Network Name    | `NatNetwork`   |
-| IPv4 Method     | Manual         |
-| IP Address      | `10.0.0.2`     |
-| Subnet Prefix   | `/24`          |
-| Default Gateway | `10.0.0.1`     |
-| DNS Server      | `8.8.8.8`      |
+| Parameter       | Value           |
+| --------------- | --------------- |
+| Connection Type | Wired Ethernet  |
+| Network Name    | `NatNetwork`    |
+| IPv4 Method     | Manual          |
+| IP Address      | `10.0.0.2`      |
+| Subnet Mask     | `255.255.255.0` |
+| Default Gateway | `10.0.0.1`      |
+| DNS Server      | `8.8.8.8`       |
 
 ### Understanding the Configuration
 
 * **IP Address:** Identifies the Kali Linux interface within the configured subnet.
-* **Subnet Prefix:** `/24` corresponds to the subnet mask `255.255.255.0`.
-* **Default Gateway:** Provides the configured route for traffic destined outside the local subnet.
+* **Subnet Mask:** Defines the network portion of the IPv4 address.
+* **Default Gateway:** Provides a route for traffic destined outside the local subnet.
 * **DNS Server:** Resolves domain names into IP addresses.
+* **NAT Network:** Allows virtual machines on the configured network to communicate and access external networks through network address translation.
 
-> **Important:** Before relying on this configuration, verify that `10.0.0.2` is available and that the selected gateway matches the actual VirtualBox NAT Network configuration.
+> **Important:** Verify that the configured IP address is available and that the gateway matches the actual VirtualBox NAT Network configuration.
 
-## 🛠️ Implementation
+## 🛠️ Implementation Steps
 
-### Step 1 — Install the Required Software
+### Step 1: Install the Required Software
 
 Install Oracle VirtualBox and 7-Zip on the Windows host machine.
 
-### Step 2 — Import Kali Linux
+### Step 2: Import Kali Linux
 
 Import the Kali Linux virtual machine into VirtualBox and start it.
 
-### Step 3 — Create the NAT Network
+### Step 3: Create a NAT Network
 
-Create a NAT Network named `NatNetwork` with the IPv4 prefix:
+Create a NAT Network named `NatNetwork` with the following IPv4 prefix:
 
 ```text
 10.0.0.0/24
 ```
 
-### Step 4 — Configure the Virtual Machine
+### Step 4: Configure the Virtual Machine Network
 
-Open the virtual machine's network settings and select `NatNetwork` as the network attachment.
+Open the Kali Linux virtual machine's network settings and select `NatNetwork` as the network attachment.
 
-### Step 5 — Configure the Kali Linux Interface
+### Step 5: Configure the Kali Linux IP Address
 
-Configure the IPv4 settings using the IP address, gateway, and DNS values listed in the configuration table.
+Configure the network connection with these values:
 
-### Step 6 — Verify Connectivity
+* IP address: `10.0.0.2/24`
+* Gateway: `10.0.0.1`
+* DNS server: `8.8.8.8`
 
-Run the network diagnostic commands listed below and inspect their output.
+### Step 6: Verify Network Connectivity
 
-### Step 7 — Configure Integration Features
+Use Linux networking commands to inspect the interface, routing table, gateway connectivity, and internet access.
 
-Configure clipboard sharing, drag-and-drop, and a shared folder if required. Install and configure Guest Additions when necessary.
+See the verification section below.
 
-### Step 8 — Create a Snapshot
+### Step 7: Configure Integration Features
 
-After the configuration and connectivity checks succeed, create a snapshot so the virtual machine can be restored to its working state.
+Configure clipboard sharing, drag-and-drop, and a shared folder if required. Install and configure VirtualBox Guest Additions when necessary.
+
+### Step 8: Create a Virtual Machine Snapshot
+
+After verifying the network configuration and other required settings, create a snapshot of the working Kali Linux virtual machine.
+
+A snapshot provides a restore point for recovering the virtual machine's previous state.
 
 ## 🧪 Verification and Testing
 
-Run these commands in the Kali Linux terminal.
+Run the following commands in the Kali Linux terminal.
 
-### 1. Inspect the Network Interface
+### 1. Check the Network Interface
 
 ```bash
 ip a
 ```
 
-**Purpose:** Check the interface state and assigned IP address.
+**Purpose:** Displays network interfaces and their assigned IP addresses.
 
-### 2. Inspect the Routing Table
+### 2. Check the Routing Table
 
 ```bash
 ip route
 ```
 
-**Purpose:** Check the configured routes and default gateway.
+**Purpose:** Displays the routing table and default route.
 
 ### 3. Test Gateway Connectivity
 
@@ -192,7 +205,7 @@ ip route
 ping -c 4 10.0.0.1
 ```
 
-**Purpose:** Test whether the configured gateway responds.
+**Purpose:** Tests whether the configured gateway responds.
 
 ### 4. Test Internet Connectivity
 
@@ -200,7 +213,7 @@ ping -c 4 10.0.0.1
 ping -c 4 8.8.8.8
 ```
 
-**Purpose:** Test IP connectivity to a public destination.
+**Purpose:** Tests connectivity to a public IP address.
 
 ### 5. Test DNS Resolution
 
@@ -208,7 +221,7 @@ ping -c 4 8.8.8.8
 nslookup networkwalks.com
 ```
 
-**Purpose:** Check whether DNS can resolve the domain name.
+**Purpose:** Checks whether the DNS server can resolve the domain name.
 
 ### 6. Check Nmap Availability
 
@@ -216,75 +229,76 @@ nslookup networkwalks.com
 nmap --version
 ```
 
-**Purpose:** Check whether Nmap is installed and available.
+**Purpose:** Displays the installed Nmap version, if available.
 
 ### Verification Checklist
 
-| Test                           | Status                    |
-| ------------------------------ | ------------------------- |
-| Kali Linux boots successfully  | Update after verification |
-| Correct IP address is assigned | Configured; verify        |
-| Gateway connectivity           | Pending verification      |
-| Internet connectivity          | Pending verification      |
-| DNS resolution                 | Pending verification      |
-| Nmap availability              | Pending verification      |
-| Snapshot created               | Update after completion   |
+| Test                          | Status                    |
+| ----------------------------- | ------------------------- |
+| Kali Linux boots successfully | Update after verification |
+| Static IP configuration       | Configured; verify        |
+| Gateway connectivity          | Pending verification      |
+| Internet connectivity         | Pending verification      |
+| DNS resolution                | Pending verification      |
+| Nmap availability             | Pending verification      |
+| Virtual machine snapshot      | Update after completion   |
 
-**Testing note:** Replace each status with the actual result after running the relevant command. A failed ping does not necessarily mean the entire network is broken; ICMP traffic may be filtered.
+**Testing note:** Update the checklist based on the actual command output. A failed ping alone does not always indicate a complete network failure because ICMP traffic may be filtered.
 
-## 📸 Screenshots
+## 📸 Lab Screenshots
 
-Screenshots provide visual evidence of the lab configuration.
+The following screenshots document the Kali Linux environment and network configuration.
 
-Create a `screenshots` folder in the repository and add your own images.
+### 1. Kali Linux Desktop
 
-Suggested structure:
+Displays the Kali Linux virtual machine running in the lab environment.
 
-```text
-B084F-WK1-PM1-CYBERSECURITY-LAB-SETUP/
-│
-├── README.md
-└── screenshots/
-    ├── 01-kali-linux-desktop.png
-    ├── 02-nat-network-settings.png
-    ├── 03-kali-ipv4-configuration.png
-    ├── 04-network-connectivity.png
-    └── 05-virtual-machine-snapshot.png
+![Kali Linux Desktop](1-kali-linux.png)
+
+### 2. VirtualBox NAT Network Configuration
+
+Shows the configured NAT Network used for the virtual lab environment.
+
+![NAT Network Settings](2-nat-network-settings.png)
+
+### 3. Kali Linux Network Configuration
+
+Shows the IPv4 settings entered for the Kali Linux network interface.
+
+![Kali Network Configuration](3-kali-network-settings.png)
+
+### 4. Network Connectivity Verification
+
+After testing connectivity, add a screenshot showing the actual command output.
+
+Suggested commands:
+
+```bash
+ping -c 4 10.0.0.1
+ping -c 4 8.8.8.8
 ```
 
-### Kali Linux Desktop
+Save the screenshot as `4-network-connectivity.png`, upload it to the repository's root directory, and then add:
 
-![Kali Linux Desktop](screenshots/01-kali-linux-desktop.png)
-
-### VirtualBox NAT Network
-
-![NAT Network Configuration](screenshots/02-nat-network-settings.png)
-
-### Kali Linux IPv4 Configuration
-
-![Kali IPv4 Configuration](screenshots/03-kali-ipv4-configuration.png)
-
-### Network Connectivity Test
-
-![Network Connectivity Test](screenshots/04-network-connectivity.png)
-
-*Add the matching screenshot files to the `screenshots` folder. Until the files exist in the repository, these images will not render.*
+![Network Connectivity Test](4-network-connectivity.png)
 
 ## 🔧 Challenges and Troubleshooting
 
 ### Static IP Configuration
 
-A static IP address was entered through the Kali Linux network settings.
+A static IP address was configured through the Kali Linux network settings.
 
 If connectivity fails, check the interface configuration, subnet, gateway, routing table, and possible IP address conflicts.
 
 ### NAT Network Connectivity
 
-The guest network settings must match the actual VirtualBox network configuration. Check that the correct NAT Network is selected and that the gateway is valid.
+The guest network configuration must match the VirtualBox NAT Network settings.
+
+If the connection does not work, verify the selected network adapter, gateway configuration, and network address assignment.
 
 ### DNS Resolution
 
-If IP connectivity works but domain names do not resolve, inspect the DNS settings and test resolution with `nslookup`.
+If internet connectivity by IP address works but domain names do not resolve, inspect the DNS settings and test resolution with `nslookup`.
 
 ## 📚 Key Learnings
 
@@ -299,39 +313,42 @@ This practical exercise provides experience with:
 * Virtual machine snapshots and recovery.
 * Technical documentation using GitHub.
 
-## 🔐 Security and Ethical Use
-
-This environment is intended for educational purposes and authorized cybersecurity practice.
-
-Use network scanning and security tools only on systems and networks for which you have permission. Keep experiments within the intended lab environment unless broader testing has been explicitly authorized.
-
 ## 🧰 Tools and Technologies
 
-| Tool                       | Purpose                                   |
-| -------------------------- | ----------------------------------------- |
-| Oracle VirtualBox          | Virtualization                            |
-| Kali Linux                 | Linux-based cybersecurity environment     |
-| 7-Zip                      | File extraction                           |
-| Windows 11                 | Host operating system                     |
-| GitHub                     | Version control and project documentation |
-| Linux networking utilities | Network inspection and testing            |
+| Tool                       | Purpose                               |
+| -------------------------- | ------------------------------------- |
+| Oracle VirtualBox          | Virtualization                        |
+| Kali Linux                 | Linux-based cybersecurity environment |
+| 7-Zip                      | File extraction                       |
+| Windows 11                 | Host operating system                 |
+| GitHub                     | Project hosting and documentation     |
+| Linux networking utilities | Network inspection and testing        |
+
+## 🔐 Security and Ethical Use
+
+This lab is intended for educational purposes and authorized cybersecurity practice.
+
+Network scanning and security tools should only be used on systems and networks for which permission has been granted. Experiments should remain within the intended lab environment unless broader testing has been explicitly authorized.
 
 ## 👨‍💻 Project Information
 
-| Field     | Details                 |
-| --------- | ----------------------- |
-| Project   | Cybersecurity Lab Setup |
-| Batch     | Cybersecurity Int B084F |
-| Practical | WK1-PM1                 |
-| Platform  | VirtualBox              |
-| Guest OS  | Kali Linux              |
+| Field                  | Details                  |
+| ---------------------- | ------------------------ |
+| Project                | Cybersecurity Lab Setup  |
+| Batch                  | Cybersecurity Int. B084D |
+| Practical              | WK1-PM1                  |
+| Platform               | Oracle VirtualBox        |
+| Guest Operating System | Kali Linux               |
+| Host Operating System  | Windows 11               |
 
 ---
 
 <div align="center">
 
-**Built as part of hands-on cybersecurity learning.**
+### Learn • Configure • Test • Document
 
-*Learn • Configure • Test • Document*
+**Cybersecurity Int. B084D**
+
+*Hands-on learning through practical cybersecurity lab configuration.*
 
 </div>
